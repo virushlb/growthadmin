@@ -1,0 +1,31 @@
+<html>
+  <body>
+<form id="productForm">
+  <label>Name</label>
+  <input id="name" required />
+
+  <label>Stock</label>
+<input id="stock" type="number" min="0" required />
+
+  <label>Price</label>
+  <input id="price" type="float" required />
+
+  <label>Category</label>
+  <input id="category" required />
+
+  <label>SKU / ID</label>
+  <input id="sku" required />
+
+  <label>Description</label>
+  <textarea id="description"></textarea>
+
+  <label>Image</label>
+  <input type="file" id="fileInput" accept="image/*" />
+
+
+  <button type="submit">Save product</button>
+</form>
+<script type="module" src="https://esm.sh/@supabase/supabase-js@2"></script>
+<script type="module" src="./admin.js"></script>
+</body>
+</html>
