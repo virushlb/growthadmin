@@ -12,7 +12,6 @@ const nameInput = document.getElementById("name");
 const stockInput = document.getElementById("stock");
 const priceInput = document.getElementById("price");
 const categoryInput = document.getElementById("category");
-const skuInput = document.getElementById("sku");
 const descriptionInput = document.getElementById("description");
 const fileInput = document.getElementById("fileInput");
 
@@ -24,8 +23,9 @@ form.addEventListener("submit", async (e) => {
   if (!file) return alert("Please choose an image.");
 
   try {
-    // Upload image
     const fileName = `${Date.now()}-${file.name}`;
+    
+    // Upload to Supabase Storage bucket "product-images"
     const { error: uploadError } = await supabase
       .storage
       .from("product-images")
@@ -39,17 +39,18 @@ form.addEventListener("submit", async (e) => {
       .from("product-images")
       .getPublicUrl(fileName);
 
-    // Insert product
+    const imageUrl = publicData.publicUrl;
+
+    // Insert product into DB
     const { error: insertError } = await supabase
       .from("products")
       .insert({
-        name: nameInput.value,
+        name: nameInput.value.trim(),
         stock: Number(stockInput.value),
         price: Number(priceInput.value),
-        category: categoryInput.value,
-        sku: skuInput.value,
-        description: descriptionInput.value,
-        image_url: publicData.publicUrl
+        category: categoryInput.value.trim(),
+        description: descriptionInput.value.trim(),
+        image_path: imageUrl   // ✅ matches your table
       });
 
     if (insertError) throw insertError;
