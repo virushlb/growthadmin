@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Growth Admin – Promo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>GROWTH • Admin</h1>
+      <nav class="admin-nav">
+        <a href="index.html">Products</a>
+        <a href="admin-orders.html">Orders</a>
+        <a href="admin-promo.html" class="active">Promo code</a>
+      </nav>
+    </header>
+
+    <section class="card">
+      <h2>Promo code</h2>
+      <form id="promoForm">
+        <label>
+          Promo code
+          <input type="text" id="promoCode" required />
+        </label>
+        <label>
+          Discount (%)
+          <input type="number" id="promoDiscount" min="0" max="100" step="1" required />
+        </label>
+        <label>
+          Active
+          <select id="promoActive">
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+          </select>
+        </label>
+        <div class="actions">
+          <button type="submit" class="btn primary">Save promo</button>
+        </div>
+      </form>
+      <p class="hint">
+        This saves to <code>promo_settings</code> in Supabase and also stores
+        the active promo in the browser for the checkout page.
+      </p>
+    </section>
+  </div>
+
+    <script src="admin-promo.js"></script>
+</body>
+</html>
