@@ -137,7 +137,7 @@ function renderProducts(products) {
 function editProduct(p) {
   idInput.value = p.id;
   nameInput.value = p.name;
-  categoryInput.value = p.category;
+  categoryInput.value = (p.category || "").toLowerCase();
   priceInput.value = p.price;
   discountInput.value = p.discount_price ?? "";
   descInput.value = p.description;
@@ -181,7 +181,7 @@ form.addEventListener("submit", async e => {
 
   const payload = {
     name: nameInput.value,
-    category: categoryInput.value,
+    category: categoryInput.value.toLowerCase(),
     price: Number(priceInput.value),
     discount_price: discountInput.value ? Number(discountInput.value) : null,
     description: descInput.value,
