@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Growth Admin – Orders</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>GROWTH • Admin</h1>
+      <nav class="admin-nav">
+        <a href="index.html">Products</a>
+        <a href="admin-orders.html" class="active">Orders</a>
+        <a href="admin-promo.html">Promo code</a>
+      </nav>
+    </header>
+
+    <section class="card">
+      <div class="card-head">
+        <h2>Orders</h2>
+        <button class="btn ghost" id="refreshOrders">Refresh</button>
+      </div>
+      <p id="ordersStatus" class="hint"></p>
+      <div class="table-wrapper">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Created</th>
+              <th>Customer</th>
+              <th>Contact</th>
+              <th>Items</th>
+              <th>Totals</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="admin-orders.js"></script>
+</body>
+</html>

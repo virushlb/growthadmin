@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Growth Admin – Products (Multi Images)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+  <style>
+    .thumb {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-right: 6px;
+      border: 1px solid #ddd;
+    }
+    #imagePreview img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>GROWTH • Admin</h1>
+      <nav class="admin-nav">
+        <a href="index.html" class="active">Products</a>
+        <a href="admin-orders.html">Orders</a>
+        <a href="admin-promo.html">Promo</a>
+      </nav>
+    </header>
+
+    <section class="card">
+      <h2>Add / Edit Product</h2>
+
+      <form id="product-form">
+        <input type="hidden" id="product-id">
+        <input type="hidden" id="old-images">
+
+        <label>Name
+          <input type="text" id="name" required>
+        </label>
+
+        <label>Category
+  <select id="category">
+    <option value="socks">Socks</option>
+    <option value="gifts">Gifts</option>
+    <option value="mugs">Mugs</option>
+    <option value="accessories">Accessories</option>
+  </select>
+</label>
+
+             <label>Price
+  <input type="number" id="price" step="0.01" required>
+</label>
+
+
+        <label>Discount Price
+  <input type="number" id="discount_price" step="0.01">
+</label>
+
+
+        <label>Description
+          <textarea id="description" rows="3"></textarea>
+        </label>
+
+        <label>Stock
+          <input type="number" id="stock" min="0" value="0">
+        </label>
+
+        <label>Images (You can choose multiple)
+          <input type="file" id="image" accept="image/*" multiple>
+        </label>
+
+        <div id="imagePreview"></div>
+
+        <button class="btn primary" type="submit">Save</button>
+        <button class="btn secondary" type="button" id="clear-btn">Clear</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Products</h2>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Images</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Discount</th>
+            <th>Stock</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="products-body"></tbody>
+      </table>
+    </section>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
