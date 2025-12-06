@@ -236,3 +236,45 @@ img.thumb {
     white-space: nowrap;
   }
 }
+
+
+/* Existing images gallery in product form */
+.img-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin: 0.15rem;
+  padding: 0.1rem 0.1rem 0.1rem 0.1rem;
+  border-radius: 999px;
+  background: #fdf7ef;
+  border: 1px solid #e2d9ce;
+}
+
+.img-remove-btn {
+  border: none;
+  background: #e05252;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.img-remove-btn:hover {
+  background: #c33a3a;
+}
+
+
+/* Promo banner toggle */
+.inline-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+.inline-checkbox input[type="checkbox"] {
+  width: auto;
+}

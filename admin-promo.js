@@ -10,7 +10,9 @@ const promoForm = document.getElementById("promoForm");
 const codeInput = document.getElementById("promoCode");
 const discountInput = document.getElementById("promoDiscount");
 const activeInput = document.getElementById("promoActive");
+const bannerCheckbox = document.getElementById("promoBannerEnabled");
 
+// Load current promo settings from Supabase
 async function loadPromo() {
   try {
     const { data, error } = await supabasePromo
@@ -28,6 +30,13 @@ async function loadPromo() {
       codeInput.value = p.code || "";
       discountInput.value = p.discount ?? "";
       activeInput.value = p.is_active ? "true" : "false";
+
+      // banner_enabled: default to true if missing so old rows still show banner
+      if (bannerCheckbox) {
+        const bannerEnabled =
+          typeof p.banner_enabled === "boolean" ? p.banner_enabled : true;
+        bannerCheckbox.checked = bannerEnabled;
+      }
 
       if (p.is_active) {
         localStorage.setItem("growth_promo_code", (p.code || "").toUpperCase());
@@ -47,6 +56,7 @@ async function savePromo(e) {
   const code = codeInput.value.trim().toUpperCase();
   const discount = Number(discountInput.value || "0");
   const isActive = activeInput.value === "true";
+  const bannerEnabled = bannerCheckbox ? bannerCheckbox.checked : true;
 
   if (!code || !discount) {
     alert("Code and discount are required.");
@@ -58,6 +68,7 @@ async function savePromo(e) {
     code,
     discount,
     is_active: isActive,
+    banner_enabled: bannerEnabled
   };
 
   try {
@@ -67,7 +78,7 @@ async function savePromo(e) {
 
     if (error) {
       console.error("Promo save error:", error);
-      alert("Saving promo failed. Make sure 'discount' and 'is_active' columns exist.");
+      alert("Promo error.");
       return;
     }
 
@@ -86,5 +97,8 @@ async function savePromo(e) {
   }
 }
 
-promoForm.addEventListener("submit", savePromo);
+if (promoForm) {
+  promoForm.addEventListener("submit", savePromo);
+}
+
 loadPromo();
