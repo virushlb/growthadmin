@@ -27,9 +27,15 @@ async function loadPromo() {
 
     if (data && data.length) {
       const p = data[0];
+
       codeInput.value = p.code || "";
       discountInput.value = p.discount ?? "";
-      activeInput.value = p.is_active ? "true" : "false";
+
+      // prefer boolean 'active'; fall back to legacy 'is_active'
+      const isActive =
+        typeof p.active === "boolean" ? p.active : !!p.is_active;
+
+      activeInput.value = isActive ? "true" : "false";
 
       // banner_enabled: default to true if missing so old rows still show banner
       if (bannerCheckbox) {
@@ -38,9 +44,16 @@ async function loadPromo() {
         bannerCheckbox.checked = bannerEnabled;
       }
 
-      if (p.is_active) {
-        localStorage.setItem("growth_promo_code", (p.code || "").toUpperCase());
-        localStorage.setItem("growth_promo_discount", String(p.discount || 0));
+      // sync localStorage with current active promo
+      if (isActive) {
+        localStorage.setItem(
+          "growth_promo_code",
+          (p.code || "").toUpperCase()
+        );
+        localStorage.setItem(
+          "growth_promo_discount",
+          String(p.discount || 0)
+        );
       } else {
         localStorage.removeItem("growth_promo_code");
         localStorage.removeItem("growth_promo_discount");
@@ -53,8 +66,9 @@ async function loadPromo() {
 
 async function savePromo(e) {
   e.preventDefault();
+
   const code = codeInput.value.trim().toUpperCase();
-  const discount = Number(discountInput.value || "0");
+  const discount = Number(discountInput.value);
   const isActive = activeInput.value === "true";
   const bannerEnabled = bannerCheckbox ? bannerCheckbox.checked : true;
 
@@ -67,7 +81,8 @@ async function savePromo(e) {
     id: 1,
     code,
     discount,
-    is_active: isActive,
+    active: isActive,
+    is_active: isActive, // keep legacy column in sync
     banner_enabled: bannerEnabled
   };
 
